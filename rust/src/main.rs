@@ -13,8 +13,12 @@ fn main() {
 
     // then load engine
     let mut engine = QmlEngine::new();
-    let dev_mode = cfg!(debug_assertions);
-    engine.set_property("DEV_MODE".into(), QVariant::from(dev_mode));
+
+    // let entry_url = QVariant::from(QString::from("http://localhost:8081/index.qml"));
+    // in production, use code below
+    let entry_url = QVariant::from(QString::from("qrc:/index.qml"));
+
+    engine.set_property("ENTRY_URL".into(), entry_url);
 
     engine.load_file("qrc:///main.qml".into());
     engine.exec();

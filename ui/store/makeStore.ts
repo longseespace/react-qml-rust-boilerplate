@@ -8,7 +8,7 @@ import createHistory from 'history/createMemoryHistory';
 import reduxThunk from 'redux-thunk';
 
 // import rootEpic from './rootEpic';
-import rootReducer from './rootReducer';
+import rootReducer, { RootState } from './rootReducer';
 
 const history = createHistory();
 // const epicMiddleware = createEpicMiddleware(rootEpic);
@@ -19,7 +19,6 @@ const routerMiddleware = createRouterMiddleware(history);
 const composeEnhancers = composeWithDevTools({
   // hostname: process.env.DEV_SERVER_HOST || 'localhost',
   // port: 8000,
-  suppressConnectErrors: false,
   realtime: process.env.NODE_ENV !== 'production',
 });
 
@@ -36,7 +35,7 @@ const enhancers = composeEnhancers(
 );
 
 export { history };
-export default initialState => {
+export default (initialState?: RootState) => {
   const store = createStore(rootReducerWithRouter, initialState, enhancers);
 
   if (module.hot) {

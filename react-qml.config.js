@@ -1,26 +1,12 @@
 const path = require('path');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-
-const { ANALYZE } = process.env;
-
-const appPlugins = [];
-
-if (ANALYZE) {
-  appPlugins.push(
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'server',
-      analyzerPort: 8888,
-      openAnalyzer: true,
-    })
-  );
-}
 
 module.exports = ({ root, platform }, defaults) => ({
-  entry: './index.js',
+  ...defaults,
+  context: path.resolve(root, 'ui'),
+  entry: ['./index.qml', `./index.tsx`],
   output: {
     path: path.join(root, 'rust/resources/qml'),
     filename: `${platform}.bundle.js`,
     library: 'Bundle',
   },
-  plugins: [...defaults.plugins, ...appPlugins],
 });

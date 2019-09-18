@@ -1,12 +1,18 @@
-import ColumnLayout from 'qt-react/QtQuick/Layouts/1.3/ColumnLayout';
-import Text from 'qt-react/QtQuick/2.10/Text';
-import Button from 'qt-react/QtQuick/Controls/2.2/Button';
+import { ColumnLayout, Text, QtQuickControls2 } from 'react-qml';
+const { Button } = QtQuickControls2;
 import * as React from 'react';
 
 import { connect } from 'react-redux';
+import { RootState } from '../store/rootReducer';
+
+type Props = {
+  value: number,
+  onIncrement: Function,
+  onDecrement: Function,
+};
 
 const connectToRedux = connect(
-  state => ({
+  (state: RootState) => ({
     value: state.counter,
   }),
   {
@@ -15,8 +21,8 @@ const connectToRedux = connect(
   }
 );
 
-class Counter extends React.Component {
-  constructor(props) {
+class Counter extends React.Component<Props> {
+  constructor(props: Props) {
     super(props);
     this.incrementAsync = this.incrementAsync.bind(this);
     this.incrementIfOdd = this.incrementIfOdd.bind(this);

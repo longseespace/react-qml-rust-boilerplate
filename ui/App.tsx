@@ -1,9 +1,16 @@
 import { Provider } from 'react-redux';
 import * as React from 'react';
+import { Store } from 'redux';
+import { MemoryHistory } from 'history';
 
 import Counter from './components/Counter';
 
-class App extends React.Component {
+type AppProps = {
+  store: Store,
+  history: MemoryHistory,
+};
+
+class App extends React.Component<AppProps> {
   componentWillMount() {
     console.log('App', 'componentWillMount');
   }
